@@ -18,4 +18,4 @@ To win the game use your keyboard arrows (UP DOWN LEFT RIGHT) to move you charac
 
 This Game was made using HTML/CSS/JS for basic functionalities and styling.In addition to that [JQUERY](https://jquery.com/) and [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) were also used.
 
-*Have fun! :)*
+**Have fun! :)**
