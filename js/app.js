@@ -6,6 +6,7 @@ var Enemy = function(x,y,speed) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+    //speed and reach of enemies
     this.speed = speed ;
     this.radius = 50 ;
     // The image/sprite for our enemies, this uses
@@ -25,7 +26,7 @@ Enemy.prototype.update = function(dt) {
       this.x = -10;
       this.speed = 50 + Math.floor(Math.random()*200);
     }
-    //Check for collision
+    //Check for collision : Enemies collied when their radius connects
 
     const dx = this.x - player.x;
     const dy = this.y - player.y;
@@ -46,7 +47,7 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 
 var Player = function(x,y){
-  //Position
+  //Position and radius (reach)
     this.x = x ;
     this.y = y;
     this.radius = 20 ;
@@ -88,7 +89,7 @@ Player.prototype.render = function(){
 
 Player.prototype.handleInput = function(keyPressed){
   if (keyPressed == 'left' && this.x > 0) {
-        this.x -= 101;
+        this.x -= 102;
     }
 
     if (keyPressed == 'right' && this.x < 405) {
@@ -104,9 +105,8 @@ Player.prototype.handleInput = function(keyPressed){
     }
 }
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 
+// Event listener for the character chosen to play with and the button to confirm it
 $('.character').on('click', function(e){
   $(this).css("border","2px solid blue");
   choosenChar = $(this).attr('src');
@@ -118,6 +118,8 @@ $('.character').on('click', function(e){
   player.render();
 });
 
+// This listens for key presses and sends the keys to your
+// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
