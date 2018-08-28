@@ -1,6 +1,6 @@
-"use strict";
 
 // Enemies our player must avoid
+
 var Enemy = function(x,y,speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
      // When arriving to the end of the canvas loop the enemies again
     if(this.x > 520){
       this.x = -10;
-      this.speed = Math.floor(Math.random()*100);
+      this.speed = 50 + Math.floor(Math.random()*200);
     }
     //Check for collision
 
@@ -53,28 +53,34 @@ var Player = function(x,y){
   //Image of player
     this.sprite = 'images/char-pink-girl.png';
 };
+// Place the player object in a variable called player
+const player = new Player(202,405);
+let modal = document.querySelector(".modal");
+let choosenChar = '';
 
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+
   let allEnemies = [];
 
-  let enemy1 = new Enemy(0,147,120);
-  let enemy2 = new Enemy(0,230,200);
-  let enemy3 = new Enemy(0,63,150);
+  let enemy1 = new Enemy(0,147,300);
+  let enemy2 = new Enemy(0,230,500);
+  let enemy3 = new Enemy(0,63,200);
 
   allEnemies.push(enemy1,enemy2,enemy3);
-
-
-  const player = new Player(202,405);
 
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.update = function(){
-
-};
+  if (this.y < 0) {
+      setTimeout(function(){
+      player.x = 202;
+      player.y = 405;
+    },500);
+  }
+}
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -86,25 +92,32 @@ Player.prototype.handleInput = function(keyPressed){
     }
 
     if (keyPressed == 'right' && this.x < 405) {
-        this.x += 101;
+        this.x += 102;
     }
 
     if (keyPressed == 'up' && this.y > 0) {
         this.y -= 83;
-        if (this.y < 0) {
-          setTimeout(function(){
-            player.x = 202;
-            player.y = 405;
-          },500);
         }
-    }
 
     if (keyPressed == 'down' && this.y < 405) {
         this.y += 83;
     }
-};
+}
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
+
+$('.character').on('click', function(e){
+  $(this).css("border","2px solid blue");
+  choosenChar = $(this).attr('src');
+  });
+
+  $('.confirm').on("click", function(){
+  modal.style.display = "none";
+  player.sprite = choosenChar ;
+  player.render();
+});
+
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
